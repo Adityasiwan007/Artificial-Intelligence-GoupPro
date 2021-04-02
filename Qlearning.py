@@ -63,6 +63,7 @@ class Learner(object):
             'state': state,
             'action': action_key
             })
+        #print(action_val)
         return action_val
     
     def UpdateQValues(self, reason):

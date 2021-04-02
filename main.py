@@ -9,7 +9,7 @@ import json
 BLOCK_SIZE = 10 
 DIS_WIDTH = 400
 DIS_HEIGHT = 400
-
+ticks = 10000
 
 def GameLoop():
     global dis
@@ -41,21 +41,32 @@ def GameLoop():
         if first_time:
             x1_change = -BLOCK_SIZE
             first_time = False
-        for event in events:
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_LEFT or action =='left':
-                    x1_change = -BLOCK_SIZE
-                    y1_change = 0
-                elif event.key == pygame.K_RIGHT or action == "right":
-                    x1_change = BLOCK_SIZE
-                    y1_change = 0
-                elif event.key == pygame.K_UP or action == "up":
-                    y1_change = -BLOCK_SIZE
-                    x1_change = 0
-                elif event.key == pygame.K_DOWN or action == "down":
-                    y1_change = BLOCK_SIZE
-                    x1_change = 0
-
+        # for event in events:
+        #     if event.type == pygame.KEYDOWN:
+        #         if event.key == pygame.K_LEFT or action =='left':
+        #             x1_change = -BLOCK_SIZE
+        #             y1_change = 0
+        #         elif event.key == pygame.K_RIGHT or action == "right":
+        #             x1_change = BLOCK_SIZE
+        #             y1_change = 0
+        #         elif event.key == pygame.K_UP or action == "up":
+        #             y1_change = -BLOCK_SIZE
+        #             x1_change = 0
+        #         elif event.key == pygame.K_DOWN or action == "down":
+        #             y1_change = BLOCK_SIZE
+        #             x1_change = 0
+        if action =='left':
+            x1_change = -BLOCK_SIZE
+            y1_change = 0
+        elif action == "right":
+            x1_change = BLOCK_SIZE
+            y1_change = 0
+        elif action == "up":
+            y1_change = -BLOCK_SIZE
+            x1_change = 0
+        elif action == "down":
+            y1_change = BLOCK_SIZE
+            x1_change = 0
         # Move snake
         x1 += x1_change
         y1 += y1_change
@@ -98,7 +109,7 @@ def GameLoop():
         learner.UpdateQValues(reason)
         
         # Next Frame
-        clock.tick(15)
+        clock.tick(ticks)
     if dead:
         print(reason)
 
@@ -131,6 +142,9 @@ while True:
     score, reason = GameLoop()
     print(f"Games: {game_count}; Score: {score}; Reason: {reason}") # Output results of each game to console to monitor as agent is training
     game_count += 1
-    if game_count % 100 == 0: # Save qvalues every qvalue_dump_n games
+    if game_count % 1000 == 0: # Save qvalues every qvalue_dump_n games
         print("Save Qvals")
         learner.SaveQvalues()
+        break
+    if game_count == 200: 
+        tick = 100
