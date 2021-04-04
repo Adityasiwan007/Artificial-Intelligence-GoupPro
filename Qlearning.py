@@ -20,8 +20,8 @@ class Learner(object):
 
         # Learning parameters
         self.epsilon = 0.1
-        self.lr = 0.7
-        self.discount = .5
+        self.lr = 0.01
+        self.discount = 0.9
 
         # State/Action history
         self.qvalues = self.LoadQvalues()
@@ -68,12 +68,15 @@ class Learner(object):
     
     def UpdateQValues(self, reason):
         history = self.history[::-1]
+        rewardAlive = -1000
+        rewardKill =  -100000
+        rewardScore = 50000000
         for i, h in enumerate(history[:-1]):
             if reason: # Snake Died -> Negative reward
                 sN = history[0]['state']
                 aN = history[0]['action']
                 state_str = self._GetStateStr(sN)
-                reward = -1
+                reward = rewardKill
                 self.qvalues[state_str][aN] = (1-self.lr) * self.qvalues[state_str][aN] + self.lr * reward # Bellman equation - there is no future state since game is over
                 reason = None
             else:
@@ -88,11 +91,11 @@ class Learner(object):
                 y2 = s1.distance[1] # y distance at previous state
                 
                 if s0.food != s1.food: # Snake ate a food, positive reward
-                    reward = 1
+                    reward = rewardScore
                 elif (abs(x1) > abs(x2) or abs(y1) > abs(y2)): # Snake is closer to the food, positive reward
-                    reward = 1
+                    reward = rewardScore/100
                 else:
-                    reward = -1 # Snake is further from the food, negative reward
+                    reward = rewardAlive # Snake is further from the food, negative reward
                     
                 state_str = self._GetStateStr(s0)
                 new_state_str = self._GetStateStr(s1)

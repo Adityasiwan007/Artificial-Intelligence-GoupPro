@@ -9,7 +9,7 @@ import json
 BLOCK_SIZE = 10 
 DIS_WIDTH = 400
 DIS_HEIGHT = 400
-ticks = 10000
+ticks = 100
 
 def GameLoop():
     global dis
@@ -142,9 +142,7 @@ while True:
     score, reason = GameLoop()
     print(f"Games: {game_count}; Score: {score}; Reason: {reason}") # Output results of each game to console to monitor as agent is training
     game_count += 1
-    if game_count % 1000 == 0: # Save qvalues every qvalue_dump_n games
+    if game_count % 100 == 0: # Save qvalues every qvalue_dump_n games
         print("Save Qvals")
         learner.SaveQvalues()
-        break
-    if game_count == 200: 
-        tick = 100
+    
