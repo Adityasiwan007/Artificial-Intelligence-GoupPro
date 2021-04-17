@@ -5,6 +5,10 @@ import Qlearning
 import itertools
 import json
 import BreadthFirstSearch
+import DepthFirstSearch
+import Astar
+import sys
+
 
 BLOCK_SIZE = 10 
 DIS_WIDTH = 400
@@ -146,7 +150,7 @@ def run_q_learning():
             print("Save Qvals")
             learner.SaveQvalues()
 
-def bfs_Gameloop(bfs):
+def general_Gameloop(obj):
     global dis
     
     dis = pygame.display.set_mode((DIS_WIDTH, DIS_HEIGHT))
@@ -176,11 +180,11 @@ def bfs_Gameloop(bfs):
     prev_action = None
     while not dead:
         
-        actions = bfs.move(snake_list, [foodx,foody])
+        actions = obj.move(snake_list, [foodx,foody])
         while (actions == None):
             foodx = round(random.choice([i for i in range(0,DIS_WIDTH-BLOCK_SIZE) if i not in snake_x]) / 10.0) * 10.0
             foody = round(random.choice([i for i in range(0,DIS_HEIGHT-BLOCK_SIZE) if i not in snake_y]) / 10.0) * 10.0
-            actions = bfs.move(snake_list, [foodx,foody])
+            actions = obj.move(snake_list, [foodx,foody])
         for action in actions:
             event = pygame.event.get()
             dis.fill((0,0,255))
@@ -272,7 +276,19 @@ def bfs_Gameloop(bfs):
     if dead:
         print(reason)
 
-def run_bfs():
+
+
+if __name__ == '__main__':
+    # run_bfs()
     bfs = BreadthFirstSearch.ShortestPathBFSSolver(DIS_WIDTH, DIS_HEIGHT, BLOCK_SIZE)
-    bfs_Gameloop(bfs)
-run_bfs()
+    dfs = DepthFirstSearch.ShortestPathDFSSolver(DIS_WIDTH, DIS_HEIGHT, BLOCK_SIZE)
+    a_star = Astar.ShortestPathAstarSolver(DIS_WIDTH, DIS_HEIGHT, BLOCK_SIZE)
+    arg = sys.argv[1]
+    if arg == '-q':
+        run_q_learning()
+    if arg == '-dfs':
+        general_Gameloop(dfs)
+    if arg == '-bfs':
+        general_Gameloop(bfs)
+    if arg == '-astar':
+        general_Gameloop(a_star)

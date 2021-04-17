@@ -1,4 +1,5 @@
-class ShortestPathBFSSolver(object):
+import heapq
+class ShortestPathAstarSolver(object):
 
     def __init__(self, display_width, display_height, block_size):
         # BaseGameModel.__init__(self, "Shortest Path BFS", "shortest_path_bfs", "spb")
@@ -14,7 +15,11 @@ class ShortestPathBFSSolver(object):
             2:'up',
             3:'down'
         }
+    def h(self,a, b):
+        """Return distance between 2 points"""
+        return (b[0] - a[0]) ** 2 + (b[1] - a[1]) ** 2
 
+    
     def move(self, snake_list, fruit_node):
         # BaseGameModel.move(self, environment)
         # shortest_path_move_from_transposition_table = self._path_move_from_transposition_table(self.starting_node, self.fruit_node)
@@ -65,20 +70,23 @@ class ShortestPathBFSSolver(object):
 
 
     def shortest_path(self, start, end, snake_list):
-        queue = [[start,[]]]
+        queue = []
+        heapq.heappush(queue,[start,[],self.h(start,end)])
         # print(snake_list)
         visited_nodes = [list(x) for x in snake_list]
+        
         #visited_nodes = snake_list
         # print(visited_nodes)
         shortest_path = []
         while queue:
-            current_node = queue.pop(0)
-            # print(current_node[0])
+            current_node = heapq.heappop(queue)
+            # print(current_node)
             path = current_node[1]
+            cost = current_node[2]
             #print(path)
             if (current_node[0] == end):
                 # print("sdasdsakdsalkdlsaldkasl;d;lasl;das;ld",path)
-                return path[::-1]
+                return path
             if current_node[0] not in visited_nodes:
                 visited_nodes.append([current_node[0][0],current_node[0][1]])
                 # print(visited_nodes)
@@ -87,5 +95,7 @@ class ShortestPathBFSSolver(object):
                     if action[0] == 0:
                         continue
                     new_path = path + [action[1]]
-                    queue.append([action[0],new_path])
+                    new_cost = cost+self.h(action[0],end)
+                    heapq.heappush(queue,[action[0],new_path,new_cost])
+        
                 

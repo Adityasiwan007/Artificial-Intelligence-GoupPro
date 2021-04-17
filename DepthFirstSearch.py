@@ -1,4 +1,4 @@
-class ShortestPathBFSSolver(object):
+class ShortestPathDFSSolver(object):
 
     def __init__(self, display_width, display_height, block_size):
         # BaseGameModel.__init__(self, "Shortest Path BFS", "shortest_path_bfs", "spb")
@@ -72,13 +72,13 @@ class ShortestPathBFSSolver(object):
         # print(visited_nodes)
         shortest_path = []
         while queue:
-            current_node = queue.pop(0)
+            current_node = queue.pop()
             # print(current_node[0])
             path = current_node[1]
             #print(path)
             if (current_node[0] == end):
                 # print("sdasdsakdsalkdlsaldkasl;d;lasl;das;ld",path)
-                return path[::-1]
+                return path
             if current_node[0] not in visited_nodes:
                 visited_nodes.append([current_node[0][0],current_node[0][1]])
                 # print(visited_nodes)
