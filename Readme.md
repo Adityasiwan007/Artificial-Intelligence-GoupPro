@@ -48,8 +48,16 @@ python main-py -astar
 
 ### For Q-learning use
 
+1. First initialize qvalues json file
+
 ```bash
 git clone https://github.com/Adityasiwan007/Artificial-Intelligence-GoupPro
 cd Artificial-Intelligence-GoupPro
+python Qvaluesinitiate.py
+```
+
+2. Then run main python file
+
+```bash
 python main-py -q
 ```
