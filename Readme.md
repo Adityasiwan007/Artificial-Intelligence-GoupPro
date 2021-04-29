@@ -25,6 +25,8 @@ python main-py -dfs
 ```
 The result should look like this:
 
+![DFS](https://github.com/Adityasiwan007/Artificial-Intelligence-GoupPro/blob/master/images/dfs.gif)
+
 =======================================
 
 ### For Breadth First Search use
@@ -34,7 +36,10 @@ git clone https://github.com/Adityasiwan007/Artificial-Intelligence-GoupPro
 cd Artificial-Intelligence-GoupPro
 python main-py -bfs
 ```
- 
+The result should look like this:
+
+![BFS](https://github.com/Adityasiwan007/Artificial-Intelligence-GoupPro/blob/master/images/bfs.gif) 
+
 =======================================
 
 ### For A-star Search use
@@ -44,6 +49,9 @@ git clone https://github.com/Adityasiwan007/Artificial-Intelligence-GoupPro
 cd Artificial-Intelligence-GoupPro
 python main-py -astar
 ```
+The result should look like this:
+
+![ASTAR](https://github.com/Adityasiwan007/Artificial-Intelligence-GoupPro/blob/master/images/astar.gif) 
  
 =======================================
 
@@ -62,3 +70,6 @@ python Qvaluesinitiate.py
 ```bash
 python main-py -q
 ```
+The result should look like this:
+
+![QLEARNING](https://github.com/Adityasiwan007/Artificial-Intelligence-GoupPro/blob/master/images/qlearning.gif) 
