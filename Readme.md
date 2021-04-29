@@ -23,7 +23,8 @@ git clone https://github.com/Adityasiwan007/Artificial-Intelligence-GoupPro
 cd Artificial-Intelligence-GoupPro
 python main-py -dfs
 ```
- 
+The result should look like this:
+
 =======================================
 
 ### For Breadth First Search use
